@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KahramanEdit — GitHub Projeleri</title>
+<style>
+:root{
+  --bg:#090b12;
+  --panel:#121725;
+  --text:#eef2ff;
+  --muted:#9aa6c2;
+  --accent:#7c5cff;
+  --cyan:#48d9d0;
+  --pink:#ff5ca8;
+  --sky:#38bdf8;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{
+  margin:0;
+  background:var(--bg);
+  background-image:radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size:26px 26px;
+  color:var(--text);
+  font:16px/1.6 Inter,ui-sans-serif,system-ui,sans-serif;
+  overflow-x:hidden;
+}
+nav{
+  position:fixed;
+  z-index:20;
+  top:0;
+  left:0;
+  width:100%;
+  padding:16px 6vw;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#090b12c4;
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid #ffffff12;
+}
+.logo{font-weight:850;letter-spacing:.1em;font-size:15px}
+.logo span{color:var(--cyan)}
+nav .links{display:flex;align-items:center;gap:18px}
+nav a{color:var(--muted);text-decoration:none;font-size:13px;transition:color .15s}
+nav a:hover{color:var(--text)}
+
+.progress{
+  position:fixed;
+  z-index:30;
+  top:0;
+  left:0;
+  height:3px;
+  width:100%;
+  transform:scaleX(0);
+  transform-origin:left;
+  background:linear-gradient(90deg,var(--accent),var(--cyan));
+}
+
+main{width:min(1140px,86vw);margin:auto;position:relative;z-index:5}
+section{
+  min-height:68vh;
+  padding:92px 0 60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+}
+#top{
+  min-height:80vh;
+  padding-top:112px;
+}
+.eyebrow{
+  color:var(--cyan);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  width:fit-content;
+}
+h1{
+  font-size:clamp(40px,7.2vw,92px);
+  line-height:1.04;
+  letter-spacing:-.06em;
+  margin:18px 0 22px;
+  max-width:920px;
+}
+h2{
+  font-size:clamp(30px,4.8vw,56px);
+  line-height:1.08;
+  letter-spacing:-.05em;
+  margin:12px 0 16px;
+}
+p{color:var(--muted);max-width:680px;font-size:17px}
+
+/* SOL ALTTAN SAĞ ÜSTE DOĞRU AÇILMA MASKESİ */
+.reveal{
+  --p:0;
+  clip-path:inset(calc((1 - var(--p)) * 100%) calc((1 - var(--p)) * 100%) 0px 0px);
+  will-change:clip-path;
+}
+.type{
+  display:inline-block;
+}
+
+.hero-actions{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.btn{
+  display:inline-block;
+  padding:13px 22px;
+  border-radius:999px;
+  text-decoration:none;
+  color:white;
+  background:var(--accent);
+  font-weight:700;
+  font-size:14px;
+  border:1px solid #ffffff20;
+}
+.btn.secondary{background:#121725;color:var(--text)}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:30px;
+}
+.card{
+  background:linear-gradient(145deg,#171f31,#101522);
+  border:1px solid #ffffff16;
+  border-radius:22px;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:255px;
+  text-decoration:none;
+  color:inherit;
+  transition:border-color .2s ease;
+}
+.card:hover{
+  border-color:rgba(72, 217, 208, 0.45);
+}
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+  gap:8px;
+}
+.card .symbol{font-size:24px}
+.badge{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  padding:4px 9px;
+  border-radius:999px;
+  background:rgba(72, 217, 208, 0.12);
+  color:var(--cyan);
+  border:1px solid rgba(72, 217, 208, 0.28);
+  white-space:nowrap;
+}
+.badge.purple{
+  background:rgba(124, 92, 255, 0.14);
+  color:#b6a4ff;
+  border-color:rgba(124, 92, 255, 0.32);
+}
+.card h3{
+  margin:0 0 10px;
+  font-size:18.5px;
+  line-height:1.25;
+  word-break:break-word;
+  color:var(--text);
+}
+.card p{
+  font-size:14px;
+  line-height:1.55;
+  margin:0 0 14px;
+  color:var(--muted);
+}
+.card-purpose{
+  font-size:12.5px;
+  color:#cfd8f3;
+  padding-top:11px;
+  border-top:1px solid #ffffff12;
+}
+.card-purpose strong{
+  color:var(--cyan);
+  font-weight:700;
+}
+
+footer{
+  padding:36px 6vw;
+  color:var(--muted);
+  border-top:1px solid #ffffff15;
+  text-align:center;
+  position:relative;
+  z-index:5;
+  font-size:14px;
+}
+footer a{color:var(--cyan);text-decoration:none}
+
+/* KAYDIRMA ESNASINDA KENARLARDA PARTİKÜL VE DALGA ÇİZEN CANVAS */
+#fx-canvas{
+  position:fixed;
+  inset:0;
+  z-index:35;
+  pointer-events:none;
+}
+
+/* TÜM AKTİF MOUSE İMLEÇLERİ VE ÇERÇEVELERİ İÇİN KATMAN */
+#cursor-layer{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.drag-box{
+  position:fixed;
+  left:0;
+  top:0;
+  pointer-events:none;
+  border:1.5px dashed rgba(72, 217, 208, 0.72);
+  background:rgba(124, 92, 255, 0.05);
+  border-radius:6px;
+  opacity:0;
+  will-change:transform,width,height,opacity;
+}
+.drag-box::after{
+  content:"";
+  position:absolute;
+  left:-4px;
+  bottom:-4px;
+  width:8px;
+  height:8px;
+  background:var(--cyan);
+  border:1.5px solid #090b12;
+  border-radius:2px;
+  box-shadow:0 0 8px var(--cyan);
+}
+
+.cursor-item{
+  position:fixed;
+  left:0;
+  top:0;
+  width:25px;
+  height:25px;
+  pointer-events:none;
+  opacity:0;
+  filter:drop-shadow(0 3px 8px rgba(72, 217, 208, 0.55));
+  will-change:transform,opacity;
+}
+.cursor-item svg{
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+.cursor-item .arrow-body{
+  fill:#ffffff;
+  stroke:#090b12;
+  stroke-width:1.8;
+  stroke-linejoin:round;
+}
+.cursor-item .arrow-badge{
+  fill:var(--cyan);
+}
+
+/* RAHATSIZ ETMEYEN KENAR FX MOUSE'LARI */
+.fx-cursor{
+  position:fixed;
+  left:0;
+  top:0;
+  pointer-events:none;
+  opacity:0;
+  will-change:transform,opacity;
+  display:flex;
+  align-items:flex-start;
+}
+.fx-cursor svg{
+  width:16px;
+  height:16px;
+  overflow:visible;
+  transition:transform 0.14s cubic-bezier(.2,1.4,.4,1);
+}
+.fx-cursor.clicking svg{
+  transform:scale(0.8);
+}
+.fx-tag{
+  margin-left:3px;
+  margin-top:10px;
+  padding:1px 5px;
+  border-radius:999px;
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.08em;
+  background:rgba(13, 17, 29, 0.72);
+  backdrop-filter:blur(4px);
+  white-space:nowrap;
+  opacity:0.78;
+}
+
+.hint{
+  position:fixed;
+  right:22px;
+  bottom:18px;
+  color:#9aa6c2;
+  background:#111827dd;
+  border:1px solid #ffffff18;
+  padding:9px 13px;
+  border-radius:12px;
+  font-size:12px;
+  z-index:15;
+}
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .grid .card{min-height:auto}
+  nav .links{gap:10px}
+  .hint{display:none}
+  section{min-height:58vh;padding:70px 0 46px}
+  #top{min-height:74vh;padding-top:96px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav>
+  <div class="logo">KAHRAMAN<span>EDIT</span></div>
+  <div class="links">
+    <a href="#redmagic">RedMagic Modülleri</a>
+    <a href="#tools">Ses, Medya &amp; Araçlar</a>
+  </div>
+</nav>
+
+<canvas id="fx-canvas" aria-hidden="true"></canvas>
+<div id="cursor-layer" aria-hidden="true"></div>
+
+<div class="hint">Aşağı / yukarı kaydır · 16 GitHub reposu</div>
+
+<main>
+  <section id="top">
+    <div class="eyebrow reveal">GitHub / KahramanEdit · 16 Public Repo</div>
+    <h1>
+      <span class="type reveal">KERNELSU, LSPOSED</span><br>
+      <span class="type reveal">&amp; ANDROID ARAÇLARI.</span>
+    </h1>
+    <p class="reveal">RedMagic 11 Pro için geliştirdiğim çekirdek (DTBO), Magisk, KernelSU ve LSPosed modüllerinden; senkron müzik çalar, parametrik EQ ve Chrome eklentilerine kadar tüm açık kaynak repolarım.</p>
+    <div class="hero-actions">
+      <a class="btn reveal" href="#redmagic">Projeleri Gör</a>
+      <a class="btn secondary reveal" href="https://github.com/KahramanEdit" target="_blank" rel="noopener">GitHub Profili ↗</a>
+    </div>
+  </section>
+
+  <!-- BÖLÜM 1: REDMAGIC 11 PRO SİSTEM & PERFORMANS MODÜLLERİ (10 REPO) -->
+  <section id="redmagic">
+    <div class="eyebrow reveal">01 / RedMagic 11 Pro Sistem &amp; Performans</div>
+    <h2>
+      <span class="type reveal">Çekirdek, soğutma</span><br>
+      <span class="type reveal">ve sistem kilit açıcılar.</span>
+    </h2>
+    <p class="reveal">RedMagic 11 Pro (NX809J) üzerindeki donanım ve yazılım kısıtlamalarını kaldırmak için geliştirilen modüller.</p>
+
+    <div class="grid">
+      <a class="card reveal" href="https://github.com/KahramanEdit/redmagic-rgb-cycle" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🌈</span><span class="badge">KernelSU</span></div>
+          <h3>redmagic-rgb-cycle</h3>
+          <p>RedMagic 11 Pro için KernelSU tabanlı RGB kontrol merkezi. AW22XXX LED sürücüsü üzerinden logo, tetik (trigger) ve fan LED'lerini senkronize eder ve WebUI ile gerçek zamanlı yönetir.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Cihaz üzerindeki tüm RGB aydınlatma bölgelerini canlı WebUI arayüzüyle tek merkezden kontrol etmek.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/NX809J-165Hz-DTBO" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">⚡</span><span class="badge">Kernel / DTBO</span></div>
+          <h3>NX809J-165Hz-DTBO</h3>
+          <p>Snapdragon 8 Elite Gen 5 tabanlı RedMagic 11 Pro (NX809J) için 165Hz ekran yenileme hızı kilidini açan özel DTBO overclock imajı.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Ekran panelini 165Hz tazeleme hızına çıkararak arayüz ve oyunlarda maksimum akıcılık sağlamak.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/ForceMax-RedMagic" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">❄️</span><span class="badge">Magisk / KernelSU</span></div>
+          <h3>ForceMax-RedMagic</h3>
+          <p>RedMagic 11 Pro için 500ms watchdog döngüsüyle fanı ve sıvı soğutma pompasını maksimum hızda kilitleyen, diğer modüllerle çakışmaları önleyen sistem modülü.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Yoğun yük altında aktif soğutma bileşenlerini kesintisiz tam kapasitede çalıştırmak.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/DiabloSuperUnlock" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🔥</span><span class="badge">LSPosed</span></div>
+          <h3>DiabloSuperUnlock</h3>
+          <p>RedMagic GameAssist için geliştirilen bu LSPosed modülü, Diablo modu ile Superior Pic Quality (Super Resolution) özelliğinin aynı anda çalışmasını sağlar.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> En üst düzey performans modu ile yüksek çözünürlüklü görüntü iyileştirmeyi birlikte kullanabilmek.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/RedMagic-11-Pro-ZRAM-16GB-RamSlider" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🧠</span><span class="badge">Magisk + LSPosed</span></div>
+          <h3>RedMagic-11-Pro-ZRAM-16GB-RamSlider</h3>
+          <p>RedMagic 11 Pro (Android 16) üzerinde writeback destekli 16 GB ZRAM (Genişletilmiş RAM) kilidini açan ve ayarlar kaydırıcısını 16 kademeye genişleten modül.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Sanal bellek kapasitesini 16 GB'a çıkarıp sistem ayarlarında 16 adımlı ince kontrol sunmak.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/MagicControl" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🎛️</span><span class="badge">Magisk</span></div>
+          <h3>MagicControl</h3>
+          <p>Şarj, titreşim, dokunmatik tepkisi, ekran parlaklığı ve termal davranışlar üzerinde doğrudan kontrol sağlayan Magisk modülü.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Cihazın güç, ekran, dokunmatik ve ısı yönetimi parametrelerini tek yerden düzenlemek.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/GameStretchUnlock" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">📐</span><span class="badge">LSPosed</span></div>
+          <h3>GameStretchUnlock</h3>
+          <p>RedMagic Free Screen özelliği için geliştirilen LSPosed modülü; oyunlarda siyah kenar çubukları (letterbox) göstermek yerine görüntüyü tam ekrana yayar.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Oyun içeriğini kenar boşlukları olmadan tam ekran ölçeğinde oynayabilmek.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/CameraZoomSlowmotionUnlock" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🎥</span><span class="badge">LSPosed</span></div>
+          <h3>CameraZoomSlowmotionUnlock</h3>
+          <p>RedMagic 11 Pro stok Nubia Kamera uygulamasında 100x dijital yakınlaştırma (zoom) kilidini açan LSPosed modülü.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Stok kamera uygulamasındaki yazılımsal yakınlaştırma sınırını kaldırarak 100x zoom kullanmak.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/RedMagic-GameSpace-Key-Redirect" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🎮</span><span class="badge">KernelSU / Magisk</span></div>
+          <h3>RedMagic-GameSpace-Key-Redirect</h3>
+          <p>RedMagic 11 Pro'nun fiziksel GameSpace yan tuşunu yeniden programlayarak istenen herhangi bir uygulamayı başlatmasını sağlayan, EN/TR WebUI arayüzlü modül.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Donanım yan anahtarını kullanıcının seçtiği uygulamaya özel kısayol olarak atamak.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/GameSpace-Auto-Sync" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🔄</span><span class="badge">LSPosed</span></div>
+          <h3>GameSpace-Auto-Sync</h3>
+          <p>Nubia ve RedMagic cihazlarda Game Space içerisindeki uygulamaları otomatik olarak yedekleyen, geri yükleyen ve yöneten LSPosed modülü.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Game Space oyun ve uygulama listesini otomatik senkronize ederek veri kaybını önlemek.</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- BÖLÜM 2: SES, MEDYA, YARDIMCI ARAÇLAR & CHROME EKLENTİSİ (6 REPO) -->
+  <section id="tools">
+    <div class="eyebrow reveal">02 / Ses, Medya, Araçlar &amp; Web</div>
+    <h2>
+      <span class="type reveal">Ses kontrolü, senkron oynatıcı</span><br>
+      <span class="type reveal">ve geliştirici araçları.</span>
+    </h2>
+    <p class="reveal">Kablosuz ses teknolojileri, senkron müzik çalma, ultra geniş video deneyimi ve Magisk geliştirici araçları.</p>
+
+    <div class="grid">
+      <a class="card reveal" href="https://github.com/KahramanEdit/AuracastControl" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">📡</span><span class="badge purple">KernelSU</span></div>
+          <h3>AuracastControl</h3>
+          <p>RedMagic 11 Pro'da Auracast (LE Audio Broadcast) ses yayınını kontrol etmeyi sağlayan, WebUI ve komut satırı (CLI) arayüzüne sahip KernelSU modülü.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Auracast kablosuz ses yayınlarını arayüz veya terminal üzerinden doğrudan yönetmek.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/Arctis-Mobile-EQ" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🎧</span><span class="badge purple">LSPosed</span></div>
+          <h3>Arctis-Mobile-EQ</h3>
+          <p>SteelSeries Arctis Companion mobil uygulaması içinde özel 10 bant Parametrik EQ kilidini açan LSPosed modülü; kısıtlı ön ayarları aşarak kazanç, frekans ve Q-faktörünü anlık düzenlemeyi sağlar.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> PC'ye ihtiyaç duymadan mobil uygulama üzerinden profesyonel parametrik ekolayzır ayarı yapmak.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/synclite" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🎵</span><span class="badge purple">Android App</span></div>
+          <h3>synclite</h3>
+          <p>İki Android cihazda senkron müzik çalar. Aynı ağdaki iki telefon PLAY, PAUSE, STOP, NEXT, PREV ve SEEK komutlarını milisaniye hassasiyetle birlikte uygular.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> Aynı ağdaki iki Android cihazdan gecikmesiz ve eşzamanlı müzik yayını yapmak.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/Panoramic-Wide" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🖥️</span><span class="badge purple">Chrome Extension</span></div>
+          <h3>Panoramic-Wide</h3>
+          <p>Herhangi bir web videosunu merkezdeki görüntüyü bozmadan 32:9 ultra geniş (ultra-wide) ekrana yayan Manifest V3 Chrome eklentisi.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> 32:9 ultra geniş monitörlerde web videolarını orantıyı bozmadan tam ekrana uyarlamak.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/Magisk-GifBoot" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">🎞️</span><span class="badge purple">Magisk / KernelSU</span></div>
+          <h3>Magisk-GifBoot</h3>
+          <p>Herhangi bir GIF veya video dosyasını ekran boyutuna tam ölçeklenmiş bir Android açılış animasyonuna (bootanimation) dönüştüren Magisk/KernelSU modülü.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> İstenen GIF veya videoları otomatik ölçekleyerek Android açılış animasyonu haline getirmek.</div>
+      </a>
+
+      <a class="card reveal" href="https://github.com/KahramanEdit/Zip2Txt" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top"><span class="symbol">📋</span><span class="badge purple">Android Utility</span></div>
+          <h3>Zip2Txt</h3>
+          <p>Magisk modülü ZIP arşivlerinin içindeki metin dosyalarını ayıklayıp yapay zeka analizi için doğrudan panoya kopyalayan Android yardımcı aracı.</p>
+        </div>
+        <div class="card-purpose"><strong>Amacı:</strong> ZIP içindeki modül kodlarını ve betiklerini tek dokunuşla çıkarıp AI analizine hazır hale getirmek.</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="end">
+    <div class="eyebrow reveal">03 / GitHub Arşivi</div>
+    <h2><span class="type reveal">Tüm repolar açık kaynak ve MIT lisanslı.</span></h2>
+    <p class="reveal">Kaynak kodları incelemek, indirmek veya katkıda bulunmak için kartlara tıklayabilir ya da GitHub profilimi ziyaret edebilirsin.</p>
+    <div class="hero-actions">
+      <a class="btn reveal" href="https://github.com/KahramanEdit" target="_blank" rel="noopener">github.com/KahramanEdit ↗</a>
+      <a class="btn secondary reveal" href="#top">Başa Dön</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  KAHRAMANEDIT — <a href="https://github.com/KahramanEdit" target="_blank" rel="noopener">github.com/KahramanEdit</a>
+</footer>
+
+<script>
+(() => {
+  const cursorLayer = document.querySelector('#cursor-layer');
+  const progressBar = document.querySelector('#progress');
+  const revealEls = [...document.querySelectorAll('.reveal')];
+  const fxCanvas = document.querySelector('#fx-canvas');
+  const ctx = fxCanvas.getContext('2d');
+  const clamp = (v, min = 0, max = 1) => Math.max(min, Math.min(max, v));
+
+  let rafId = null;
+  let lastFrameTime = performance.now();
+  let dpr = 1;
+
+  let lastScrollY = window.scrollY;
+  let lastScrollTime = 0;
+  let scrollDir = 1;
+  let scrollVel = 0;
+  let fxEnergy = 0;
+  let travelAccum = 0;
+
+  function resizeCanvas() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    fxCanvas.width = window.innerWidth * dpr;
+    fxCanvas.height = window.innerHeight * dpr;
+    fxCanvas.style.width = window.innerWidth + 'px';
+    fxCanvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resizeCanvas();
+
+  const cursorSvg = `
+    <svg viewBox="0 0 28 28">
+      <path class="arrow-body" d="M2 2 L2 21 L7.2 16.2 L11.2 24.5 L14.5 22.9 L10.5 14.6 L18 14.6 Z"/>
+      <circle class="arrow-badge" cx="19" cy="19" r="3"/>
+    </svg>
+  `;
+
+  function computeScrollProgress(el, rowColIndex, vh, bottomBoost) {
+    const r = el.getBoundingClientRect();
+    const colShift = rowColIndex * (vh * 0.06);
+    const start = vh * 0.95 - colShift;
+    const end = vh * 0.68 - colShift;
+
+    let p = clamp((start - r.top) / (start - end));
+    if (bottomBoost > 0 && r.top < vh) {
+      p = Math.max(p, bottomBoost);
+    }
+    return p;
+  }
+
+  const items = revealEls.map((el) => {
+    const box = document.createElement('div');
+    box.className = 'drag-box';
+
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor-item';
+    cursor.innerHTML = cursorSvg;
+
+    cursorLayer.appendChild(box);
+    cursorLayer.appendChild(cursor);
+
+    return {
+      el,
+      box,
+      cursor,
+      currentP: null,
+      prevScrollP: null
+    };
+  });
+
+  const fxConfigs = [
+    { label: 'GLOW',  color: '#48d9d0', side: 'right', edgeOffset: 0.045, yBase: 0.24, yAmp: 0.14, freq: 0.0035, phase: 0.3,  shape: 'spark', mobileShow: true  },
+    { label: 'PULSE', color: '#7c5cff', side: 'left',  edgeOffset: 0.025, yBase: 0.58, yAmp: 0.15, freq: 0.0031, phase: 2.2,  shape: 'ring',  mobileShow: true  },
+    { label: 'TRACE', color: '#ff5ca8', side: 'right', edgeOffset: 0.065, yBase: 0.72, yAmp: 0.12, freq: 0.0041, phase: 4.1,  shape: 'cross', mobileShow: false },
+    { label: 'SPARK', color: '#38bdf8', side: 'left',  edgeOffset: 0.045, yBase: 0.30, yAmp: 0.13, freq: 0.0038, phase: 5.5,  shape: 'spark', mobileShow: false }
+  ];
+
+  const fxCursors = fxConfigs.map((cfg) => {
+    const el = document.createElement('div');
+    el.className = 'fx-cursor';
+    el.innerHTML = `
+      <svg viewBox="0 0 28 28">
+        <path d="M2 2 L2 21 L7.2 16.2 L11.2 24.5 L14.5 22.9 L10.5 14.6 L18 14.6 Z"
+              fill="${cfg.color}cc" stroke="#090b12" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+      <span class="fx-tag" style="color:${cfg.color};border:1px solid ${cfg.color}44">${cfg.label}</span>
+    `;
+    cursorLayer.appendChild(el);
+    return { ...cfg, el, x: 0, y: 0, prevX: null, prevY: null, clickTimer: 0 };
+  });
+
+  const particles = [];
+  const ripples = [];
+  const ribbons = [];
+
+  function spawnParticle(x, y, color, shape, velY) {
+    if (particles.length > 75) particles.shift();
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 0.35 + Math.random() * 1.1;
+    particles.push({
+      x,
+      y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - Math.sign(velY || 1) * (0.4 + Math.random() * 0.9),
+      size: 1.2 + Math.random() * 1.6,
+      alpha: 0.55,
+      decay: 0.025 + Math.random() * 0.02,
+      color,
+      shape,
+      rot: Math.random() * Math.PI
+    });
+  }
+
+  function spawnRipple(x, y, color) {
+    if (ripples.length > 8) ripples.shift();
+    ripples.push({
+      x,
+      y,
+      r: 2,
+      maxR: 26 + Math.random() * 14,
+      alpha: 0.45,
+      color
+    });
+  }
+
+  function updateRevealElements(dt, isIdle) {
+    const vh = document.documentElement.clientHeight || window.innerHeight;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - vh);
+    const scrollRatio = maxScroll > 0 ? clamp(scrollY / maxScroll) : 0;
+    progressBar.style.transform = `scaleX(${scrollRatio})`;
+
+    const distFromBottom = Math.max(0, maxScroll - scrollY);
+    const bottomBoost = maxScroll > 0 ? clamp(1 - distFromBottom / (vh * 0.34)) : 1;
+
+    let prevTop = null;
+    let rowColIndex = 0;
+    let hasActiveItem = false;
+
+    items.forEach((item) => {
+      const { el, box, cursor } = item;
+      const r = el.getBoundingClientRect();
+
+      if (prevTop !== null && Math.abs(r.top - prevTop) < 28) {
+        rowColIndex++;
+      } else {
+        rowColIndex = 0;
+      }
+      prevTop = r.top;
+
+      const scrollP = computeScrollProgress(el, rowColIndex, vh, bottomBoost);
+
+      if (item.currentP === null) {
+        item.currentP = scrollP;
+        item.prevScrollP = scrollP;
+      }
+
+      const deltaScrollP = scrollP - item.prevScrollP;
+
+      if (Math.abs(deltaScrollP) > 0.0001) {
+        if (deltaScrollP > 0) {
+          const rem = 1 - item.prevScrollP;
+          const ratio = rem > 0.001 ? clamp(deltaScrollP / rem) : 1;
+          item.currentP += (1 - item.currentP) * ratio;
+        } else {
+          const rem = item.prevScrollP;
+          const ratio = rem > 0.001 ? clamp((-deltaScrollP) / rem) : 1;
+          item.currentP -= item.currentP * ratio;
+        }
+        item.prevScrollP = scrollP;
+      } else if (isIdle) {
+        if (item.currentP > 0.002 && item.currentP < 0.998) {
+          const settleSpeed = 0.68;
+          if (scrollDir >= 0) {
+            item.currentP = Math.min(1, item.currentP + settleSpeed * dt);
+          } else {
+            item.currentP = Math.max(0, item.currentP - settleSpeed * dt);
+          }
+        }
+      }
+
+      item.currentP = clamp(item.currentP);
+      const p = item.currentP;
+      el.style.setProperty('--p', p.toFixed(4));
+
+      const isDrawing = p > 0.002 && p < 0.998 && r.bottom > 0 && r.top < vh;
+
+      if (isDrawing) {
+        hasActiveItem = true;
+        const curW = r.width * p;
+        const curH = r.height * p;
+        const curX = r.left + curW;
+        const curY = r.bottom - curH;
+
+        box.style.opacity = '1';
+        box.style.transform = `translate3d(${r.left}px, ${curY}px, 0)`;
+        box.style.width = `${curW}px`;
+        box.style.height = `${curH}px`;
+
+        cursor.style.opacity = '1';
+        cursor.style.transform = `translate3d(${curX - 2}px, ${curY - 2}px, 0)`;
+      } else {
+        box.style.opacity = '0';
+        cursor.style.opacity = '0';
+      }
+    });
+
+    return hasActiveItem;
+  }
+
+  function updateFxLayer() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const sy = window.scrollY;
+    const isMobile = vw < 700;
+
+    ctx.clearRect(0, 0, vw, vh);
+
+    fxCursors.forEach((fc) => {
+      if (isMobile && !fc.mobileShow) {
+        fc.el.style.opacity = '0';
+        return;
+      }
+
+      if (fxEnergy > 0.01) {
+        const t = sy * fc.freq + fc.phase;
+        const sway = Math.sin(t) * (vw * 0.018);
+
+        let targetX;
+        if (fc.side === 'left') {
+          const slideIn = (1 - fxEnergy) * -28;
+          targetX = vw * fc.edgeOffset + sway + slideIn;
+        } else {
+          const slideIn = (1 - fxEnergy) * 28;
+          const rightSafeMargin = isMobile ? 48 : 64;
+          targetX = vw * (1 - fc.edgeOffset) - rightSafeMargin + sway + slideIn;
+        }
+
+        const targetY = vh * (fc.yBase + Math.cos(t * 0.85) * fc.yAmp);
+
+        fc.prevX = fc.x || targetX;
+        fc.prevY = fc.y || targetY;
+        fc.x = targetX;
+        fc.y = targetY;
+
+        fc.el.style.opacity = (fxEnergy * 0.48).toFixed(3);
+        fc.el.style.transform = `translate3d(${fc.x}px, ${fc.y}px, 0)`;
+
+        if (fc.clickTimer > 0) {
+          fc.clickTimer--;
+          fc.el.classList.add('clicking');
+        } else {
+          fc.el.classList.remove('clicking');
+        }
+
+        const glowRadius = 52 + Math.min(30, Math.abs(scrollVel) * 0.8);
+        const grad = ctx.createRadialGradient(fc.x, fc.y, 0, fc.x, fc.y, glowRadius);
+        grad.addColorStop(0, fc.color + '14');
+        grad.addColorStop(1, fc.color + '00');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(fc.x, fc.y, glowRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (Math.abs(scrollVel) > 1.5 && fc.prevX !== null) {
+          ribbons.push({
+            x1: fc.prevX,
+            y1: fc.prevY,
+            x2: fc.x,
+            y2: fc.y,
+            alpha: 0.35,
+            color: fc.color
+          });
+          if (ribbons.length > 50) ribbons.shift();
+        }
+      } else {
+        fc.el.style.opacity = '0';
+        fc.el.classList.remove('clicking');
+        fc.prevX = null;
+      }
+    });
+
+    for (let i = ribbons.length - 1; i >= 0; i--) {
+      const rb = ribbons[i];
+      rb.alpha -= 0.035;
+      if (rb.alpha <= 0) {
+        ribbons.splice(i, 1);
+        continue;
+      }
+      ctx.strokeStyle = rb.color + Math.round(rb.alpha * 255).toString(16).padStart(2, '0');
+      ctx.lineWidth = 1.4;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(rb.x1, rb.y1);
+      ctx.lineTo(rb.x2, rb.y2);
+      ctx.stroke();
+    }
+
+    for (let i = ripples.length - 1; i >= 0; i--) {
+      const rp = ripples[i];
+      rp.r += 1.4;
+      rp.alpha -= 0.024;
+      if (rp.alpha <= 0 || rp.r >= rp.maxR) {
+        ripples.splice(i, 1);
+        continue;
+      }
+      ctx.strokeStyle = rp.color + Math.round(rp.alpha * 255).toString(16).padStart(2, '0');
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const pt = particles[i];
+      pt.x += pt.vx;
+      pt.y += pt.vy;
+      pt.vy *= 0.97;
+      pt.rot += 0.06;
+      pt.alpha -= pt.decay;
+
+      if (pt.alpha <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+
+      const hexA = Math.round(clamp(pt.alpha) * 255).toString(16).padStart(2, '0');
+      ctx.fillStyle = pt.color + hexA;
+      ctx.strokeStyle = pt.color + hexA;
+
+      if (pt.shape === 'cross') {
+        ctx.save();
+        ctx.translate(pt.x, pt.y);
+        ctx.rotate(pt.rot);
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(-pt.size, 0);
+        ctx.lineTo(pt.size, 0);
+        ctx.moveTo(0, -pt.size);
+        ctx.lineTo(0, pt.size);
+        ctx.stroke();
+        ctx.restore();
+      } else if (pt.shape === 'ring') {
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2);
+        ctx.stroke();
+      } else {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, pt.size * 0.7, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  function tick(now) {
+    const dt = Math.min(0.05, Math.max(0.001, (now - lastFrameTime) / 1000));
+    lastFrameTime = now;
+
+    const isIdle = (now - lastScrollTime) > 160;
+
+    const hasActiveItem = updateRevealElements(dt, isIdle);
+    updateFxLayer();
+
+    scrollVel *= 0.85;
+    fxEnergy = Math.max(0, fxEnergy - 1.8 * dt);
+
+    const hasFx = fxEnergy > 0.005 || particles.length > 0 || ripples.length > 0 || ribbons.length > 0;
+
+    if (hasActiveItem || hasFx) {
+      rafId = requestAnimationFrame(tick);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function ensureLoop() {
+    if (!rafId) {
+      lastFrameTime = performance.now();
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    const currentY = window.scrollY;
+    const delta = currentY - lastScrollY;
+    lastScrollY = currentY;
+    lastScrollTime = performance.now();
+
+    if (Math.abs(delta) > 0.2) {
+      scrollDir = delta > 0 ? 1 : -1;
+    }
+
+    scrollVel = delta;
+    fxEnergy = 1;
+    travelAccum += Math.abs(delta);
+
+    const isMobile = window.innerWidth < 700;
+
+    if (Math.abs(delta) > 0.5) {
+      fxCursors.forEach((fc, idx) => {
+        if (isMobile && !fc.mobileShow) return;
+        if (fc.x && Math.random() < 0.28) {
+          spawnParticle(fc.x + 5, fc.y + 5, fc.color, fc.shape, delta);
+        }
+        if (travelAccum > 180 && idx === Math.floor(Math.random() * fxCursors.length)) {
+          fc.clickTimer = 7;
+          spawnRipple(fc.x + 2, fc.y + 2, fc.color);
+        }
+      });
+      if (travelAccum > 180) travelAccum = 0;
+    }
+
+    ensureLoop();
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    ensureLoop();
+  });
+
+  lastScrollTime = performance.now();
+  ensureLoop();
+})();
+</script>
+</body>
+</html>
