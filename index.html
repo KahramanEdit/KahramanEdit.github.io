@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KahramanEdit — GitHub Projeleri</title>
+<title>KahramanEdit — Tüm Projeler (Public &amp; Private)</title>
 <style>
 :root{
   --bg:#090b12;
@@ -104,7 +104,25 @@ p{color:var(--muted);max-width:680px;font-size:17px}
   display:inline-block;
 }
 
-.hero-actions{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.stats-row{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+.stat-pill{
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:12.5px;
+  font-weight:700;
+  background:#121725;
+  border:1px solid #ffffff18;
+  color:#dce4fa;
+}
+.stat-pill span{color:var(--cyan)}
+.stat-pill.priv span{color:#ff8ec4}
+
+.hero-actions{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap}
 .btn{
   display:inline-block;
   padding:13px 22px;
@@ -132,51 +150,79 @@ p{color:var(--muted);max-width:680px;font-size:17px}
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  min-height:255px;
+  min-height:275px;
   text-decoration:none;
   color:inherit;
   transition:border-color .2s ease;
 }
-.card:hover{
-  border-color:rgba(72, 217, 208, 0.45);
+a.card:hover{
+  border-color:rgba(72, 217, 208, 0.48);
+}
+.card.private-card{
+  background:linear-gradient(145deg,#1a1729,#101320);
+  border-color:rgba(255, 92, 168, 0.22);
+  cursor:default;
 }
 .card-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
+  margin-bottom:14px;
   gap:8px;
 }
 .card .symbol{font-size:24px}
+.badges{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
 .badge{
   font-size:10px;
   font-weight:800;
-  letter-spacing:.11em;
+  letter-spacing:.1em;
   text-transform:uppercase;
-  padding:4px 9px;
+  padding:4px 8px;
   border-radius:999px;
   background:rgba(72, 217, 208, 0.12);
   color:var(--cyan);
   border:1px solid rgba(72, 217, 208, 0.28);
   white-space:nowrap;
 }
-.badge.purple{
+.badge.lang{
   background:rgba(124, 92, 255, 0.14);
   color:#b6a4ff;
   border-color:rgba(124, 92, 255, 0.32);
 }
+.badge.pink{
+  background:rgba(255, 92, 168, 0.14);
+  color:#ff8ec4;
+  border-color:rgba(255, 92, 168, 0.34);
+}
 .card h3{
-  margin:0 0 10px;
+  margin:0 0 8px;
   font-size:18.5px;
   line-height:1.25;
   word-break:break-word;
   color:var(--text);
 }
-.card p{
+.card-short{
   font-size:14px;
+  line-height:1.5;
+  margin:0 0 12px;
+  color:#cbd5f1;
+}
+.card-long{
+  font-size:12.8px;
   line-height:1.55;
-  margin:0 0 14px;
   color:var(--muted);
+  padding-left:10px;
+  border-left:2px solid rgba(72, 217, 208, 0.35);
+  margin-bottom:14px;
+}
+.card-long.private-long{
+  border-left-color:rgba(255, 92, 168, 0.38);
 }
 .card-purpose{
   font-size:12.5px;
@@ -187,6 +233,9 @@ p{color:var(--muted);max-width:680px;font-size:17px}
 .card-purpose strong{
   color:var(--cyan);
   font-weight:700;
+}
+.card-purpose.private-foot strong{
+  color:#ff8ec4;
 }
 
 footer{
@@ -336,202 +385,364 @@ footer a{color:var(--cyan);text-decoration:none}
 <nav>
   <div class="logo">KAHRAMAN<span>EDIT</span></div>
   <div class="links">
-    <a href="#redmagic">RedMagic Modülleri</a>
-    <a href="#tools">Ses, Medya &amp; Araçlar</a>
+    <a href="#public-projects">Açık Kaynak</a>
+    <a href="#private-projects">Özel Projeler</a>
   </div>
 </nav>
 
 <canvas id="fx-canvas" aria-hidden="true"></canvas>
 <div id="cursor-layer" aria-hidden="true"></div>
 
-<div class="hint">Aşağı / yukarı kaydır · 16 GitHub reposu</div>
+<div class="hint">Aşağı / yukarı kaydır · 20 proje</div>
 
 <main>
   <section id="top">
-    <div class="eyebrow reveal">GitHub / KahramanEdit · 16 Public Repo</div>
+    <div class="eyebrow reveal">GitHub / KahramanEdit · Proje Portfolyosu</div>
     <h1>
-      <span class="type reveal">KERNELSU, LSPOSED</span><br>
-      <span class="type reveal">&amp; ANDROID ARAÇLARI.</span>
+      <span class="type reveal">AÇIK KAYNAK &amp;</span><br>
+      <span class="type reveal">ÖZEL PROJELERİM.</span>
     </h1>
-    <p class="reveal">RedMagic 11 Pro için geliştirdiğim çekirdek (DTBO), Magisk, KernelSU ve LSPosed modüllerinden; senkron müzik çalar, parametrik EQ ve Chrome eklentilerine kadar tüm açık kaynak repolarım.</p>
+    <p class="reveal">Android kernel, Magisk, KernelSU ve LSPosed modüllerinden özel yazılım araçlarına kadar geliştirdiğim tüm halka açık ve gizli depolarımın kısa ve detaylı özetleri.</p>
+    <div class="stats-row reveal">
+      <div class="stat-pill">Toplam: <span>20 Proje</span></div>
+      <div class="stat-pill">Public: <span>16</span></div>
+      <div class="stat-pill priv">Private: <span>4</span></div>
+    </div>
     <div class="hero-actions">
-      <a class="btn reveal" href="#redmagic">Projeleri Gör</a>
+      <a class="btn reveal" href="#public-projects">Projeleri İncele</a>
       <a class="btn secondary reveal" href="https://github.com/KahramanEdit" target="_blank" rel="noopener">GitHub Profili ↗</a>
     </div>
   </section>
 
-  <!-- BÖLÜM 1: REDMAGIC 11 PRO SİSTEM & PERFORMANS MODÜLLERİ (10 REPO) -->
-  <section id="redmagic">
-    <div class="eyebrow reveal">01 / RedMagic 11 Pro Sistem &amp; Performans</div>
+  <section id="public-projects">
+    <div class="eyebrow reveal">01 / Halka Açık Depolar (16 Public Repo)</div>
     <h2>
-      <span class="type reveal">Çekirdek, soğutma</span><br>
-      <span class="type reveal">ve sistem kilit açıcılar.</span>
+      <span class="type reveal">Açık kaynak modüller</span><br>
+      <span class="type reveal">ve geliştirici araçları.</span>
     </h2>
-    <p class="reveal">RedMagic 11 Pro (NX809J) üzerindeki donanım ve yazılım kısıtlamalarını kaldırmak için geliştirilen modüller.</p>
-
+    <p class="reveal">Kaynak kodlarına doğrudan erişebileceğin halka açık GitHub depolarım; kartlara tıklayarak ilgili depoya gidebilirsin.</p>
     <div class="grid">
+      
+      <a class="card reveal" href="https://github.com/KahramanEdit/Panoramic-Wide" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🧠</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>Panoramic-Wide</h3>
+          <p class="card-short">Stretch any web video to 32:9 ultra-wide without distorting the center. Manifest V3 Chrome extension by Clenix / Kahraman.</p>
+          <div class="card-long">🎮 Panoramic Wide Stretch any web video to 32:9 ultra-wide without distorting the center. 🎯 Center-preserving stretch Only the edges are warped, the middle stays untouched. 🎚️ Adjustable safe zone Protect 20% – 90% of the center of the video. ⌨️ Quick toggle Press Alt + S anytime to enable...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/AuracastControl" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🎧</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>AuracastControl</h3>
+          <p class="card-short">KernelSU modülü ile RedMagic 11 Pro&#x27;da Auracast (LE Audio Broadcast) yayını kontrol edin. WebUI + komut satırı arayüzü.</p>
+          <div class="card-long">RedMagic 11 Pro için Auracast (LE Audio Broadcast) yayınlarını zahmetsizce yönetin. KernelSU entegrasyonu sayesinde WebUI üzerinden tek dokunuşla yayın başlatın, durdurun ve yapılandırın. Neden AuracastControl? RedMagic OS (Nubia), donanım desteklemesine rağmen Auracast arayüzünü...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/Arctis-Mobile-EQ" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🧠</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>Arctis-Mobile-EQ</h3>
+          <p class="card-short">An LSPosed module that unlocks custom 10-band Parametric EQ tuning directly within the SteelSeries Arctis Companion mobile app. Bypass restrictive presets to tweak gain, frequency, and Q-factor on the fly—no PC required. Use at your own risk.</p>
+          <div class="card-long">🎮 Arctis Custom EQ Unlock the full 10-band Parametric EQ potential of your SteelSeries Arctis headphones! Because the mobile app shouldn&#x27;t limit what your hardware can do. While the PC version of SteelSeries GG allows full parametric EQ adjustments, the official mobile app locks users...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
       <a class="card reveal" href="https://github.com/KahramanEdit/redmagic-rgb-cycle" target="_blank" rel="noopener">
         <div>
-          <div class="card-top"><span class="symbol">🌈</span><span class="badge">KernelSU</span></div>
+          <div class="card-top">
+            <span class="symbol">🌈</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
           <h3>redmagic-rgb-cycle</h3>
-          <p>RedMagic 11 Pro için KernelSU tabanlı RGB kontrol merkezi. AW22XXX LED sürücüsü üzerinden logo, tetik (trigger) ve fan LED'lerini senkronize eder ve WebUI ile gerçek zamanlı yönetir.</p>
+          <p class="card-short">&quot;KernelSU-based RGB control center for RedMagic 11 Pro. Synchronizes logo, trigger and fan LEDs via AW22XXX LED driver; real-time management with WebUI.&quot;</p>
+          <div class="card-long">RedMagic AW22XXX RGB Control Center KernelSU-based RGB control center for RedMagic 11 Pro. Synchronizes logo, trigger and fan LEDs via AW22XXX LED driver; real-time management with WebUI. Why This Module? RedMagic hardware supports RGB effects, but the software is limited. This module...</div>
         </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Cihaz üzerindeki tüm RGB aydınlatma bölgelerini canlı WebUI arayüzüyle tek merkezden kontrol etmek.</div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
       </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/NX809J-165Hz-DTBO" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">⚡</span><span class="badge">Kernel / DTBO</span></div>
-          <h3>NX809J-165Hz-DTBO</h3>
-          <p>Snapdragon 8 Elite Gen 5 tabanlı RedMagic 11 Pro (NX809J) için 165Hz ekran yenileme hızı kilidini açan özel DTBO overclock imajı.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Ekran panelini 165Hz tazeleme hızına çıkararak arayüz ve oyunlarda maksimum akıcılık sağlamak.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/ForceMax-RedMagic" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">❄️</span><span class="badge">Magisk / KernelSU</span></div>
-          <h3>ForceMax-RedMagic</h3>
-          <p>RedMagic 11 Pro için 500ms watchdog döngüsüyle fanı ve sıvı soğutma pompasını maksimum hızda kilitleyen, diğer modüllerle çakışmaları önleyen sistem modülü.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Yoğun yük altında aktif soğutma bileşenlerini kesintisiz tam kapasitede çalıştırmak.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/DiabloSuperUnlock" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">🔥</span><span class="badge">LSPosed</span></div>
-          <h3>DiabloSuperUnlock</h3>
-          <p>RedMagic GameAssist için geliştirilen bu LSPosed modülü, Diablo modu ile Superior Pic Quality (Super Resolution) özelliğinin aynı anda çalışmasını sağlar.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> En üst düzey performans modu ile yüksek çözünürlüklü görüntü iyileştirmeyi birlikte kullanabilmek.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/RedMagic-11-Pro-ZRAM-16GB-RamSlider" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">🧠</span><span class="badge">Magisk + LSPosed</span></div>
-          <h3>RedMagic-11-Pro-ZRAM-16GB-RamSlider</h3>
-          <p>RedMagic 11 Pro (Android 16) üzerinde writeback destekli 16 GB ZRAM (Genişletilmiş RAM) kilidini açan ve ayarlar kaydırıcısını 16 kademeye genişleten modül.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Sanal bellek kapasitesini 16 GB'a çıkarıp sistem ayarlarında 16 adımlı ince kontrol sunmak.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/MagicControl" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">🎛️</span><span class="badge">Magisk</span></div>
-          <h3>MagicControl</h3>
-          <p>Şarj, titreşim, dokunmatik tepkisi, ekran parlaklığı ve termal davranışlar üzerinde doğrudan kontrol sağlayan Magisk modülü.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Cihazın güç, ekran, dokunmatik ve ısı yönetimi parametrelerini tek yerden düzenlemek.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/GameStretchUnlock" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">📐</span><span class="badge">LSPosed</span></div>
-          <h3>GameStretchUnlock</h3>
-          <p>RedMagic Free Screen özelliği için geliştirilen LSPosed modülü; oyunlarda siyah kenar çubukları (letterbox) göstermek yerine görüntüyü tam ekrana yayar.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Oyun içeriğini kenar boşlukları olmadan tam ekran ölçeğinde oynayabilmek.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/CameraZoomSlowmotionUnlock" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">🎥</span><span class="badge">LSPosed</span></div>
-          <h3>CameraZoomSlowmotionUnlock</h3>
-          <p>RedMagic 11 Pro stok Nubia Kamera uygulamasında 100x dijital yakınlaştırma (zoom) kilidini açan LSPosed modülü.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Stok kamera uygulamasındaki yazılımsal yakınlaştırma sınırını kaldırarak 100x zoom kullanmak.</div>
-      </a>
-
       <a class="card reveal" href="https://github.com/KahramanEdit/RedMagic-GameSpace-Key-Redirect" target="_blank" rel="noopener">
         <div>
-          <div class="card-top"><span class="symbol">🎮</span><span class="badge">KernelSU / Magisk</span></div>
+          <div class="card-top">
+            <span class="symbol">🎮</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
           <h3>RedMagic-GameSpace-Key-Redirect</h3>
-          <p>RedMagic 11 Pro'nun fiziksel GameSpace yan tuşunu yeniden programlayarak istenen herhangi bir uygulamayı başlatmasını sağlayan, EN/TR WebUI arayüzlü modül.</p>
+          <p class="card-short">Remap the RedMagic 11 Pro GameSpace side key to launch any app. KernelSU/Magisk module with a small EN/TR WebUI.</p>
+          <div class="card-long">RedMagic GameSpace Key Redirect Remap the RedMagic GameSpace side key to launch any app you choose, from a small KernelSU WebUI. A tiny root module for the RedMagic 11 Pro (REDMAGICOS 11, Android 16). No APK, no background service, no daemon: the module only writes the same system...</div>
         </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Donanım yan anahtarını kullanıcının seçtiği uygulamaya özel kısayol olarak atamak.</div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
       </a>
-
+      <a class="card reveal" href="https://github.com/KahramanEdit/Magisk-GifBoot" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🌈</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>Magisk-GifBoot</h3>
+          <p class="card-short">A Magisk/KernelSU module to convert any GIF or video into a perfectly scaled Android boot animation.</p>
+          <div class="card-long">🎬 GifBoot (Boot Animation Maker) Turn any GIF or Video into a Custom Android Boot Animation. A Magisk/KernelSU module script that converts your favorite GIFs or videos into a perfectly scaled Android bootanimation.zip tailored to your device&#x27;s exact screen resolution. 📖 The Problem...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/Zip2Txt" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">📋</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>Zip2Txt</h3>
+          <p class="card-short">An Android utility to extract text files from Magisk modules (ZIPs) and copy them directly to the clipboard for AI analysis.</p>
+          <div class="card-long">Extract, Select, and Copy Magisk Module Scripts Instantly. An Android utility designed for modders and developers. It allows you to extract text-based files (like .sh, .prop, .xml, .json) from any ZIP file (specifically Magisk/KernelSU modules) and copy them directly to your clipboard...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/synclite" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🧠</span>
+            <div class="badges">
+              <span class="badge lang">Kotlin</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>synclite</h3>
+          <p class="card-short">SyncLite İki Android cihazda senkron müzik çalar. Aynı ağdaki iki telefon PLAY / PAUSE / STOP / NEXT / PREV / SEEK komutlarını milisaniye hassasiyetle birlikte uygular.</p>
+          <div class="card-long">İki Android cihazda senkron müzik çalar. Aynı ağdaki iki telefon PLAY / PAUSE / STOP / NEXT / PREV / SEEK komutlarını milisaniye hassasiyetle birlikte uygular. 🎵 Hızlı tarama — MediaStore.Audio ile 300+ şarkıyı 8ms&#x27;de bulur 🔄 Saat senkronizasyonu — UDP üzerinden NTP-benzeri offset hesabı...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
       <a class="card reveal" href="https://github.com/KahramanEdit/GameSpace-Auto-Sync" target="_blank" rel="noopener">
         <div>
-          <div class="card-top"><span class="symbol">🔄</span><span class="badge">LSPosed</span></div>
+          <div class="card-top">
+            <span class="symbol">🎮</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
           <h3>GameSpace-Auto-Sync</h3>
-          <p>Nubia ve RedMagic cihazlarda Game Space içerisindeki uygulamaları otomatik olarak yedekleyen, geri yükleyen ve yöneten LSPosed modülü.</p>
+          <p class="card-short">An LSPosed module for Nubia/ RedMagic devices to automatically backup, restore, and manage Game Space  apps.</p>
+          <div class="card-long">🎮 GameSpace Auto Sync Never lose your Game Space library again. An LSPosed module designed for Nubia / RedMagic devices to automatically backup, restore, and manage your Game Space (cn.nubia.gamelauncher) library. Features • Requirements • Installation • Disclaimer 📖 The Problem If you...</div>
         </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Game Space oyun ve uygulama listesini otomatik senkronize ederek veri kaybını önlemek.</div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/NX809J-165Hz-DTBO" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">⚡</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>NX809J-165Hz-DTBO</h3>
+          <p class="card-short">Custom DTBO Overclock for RedMagic 11 Pro (NX809J) to unlock 165Hz display refresh rate. Based on Snapdragon 8 Elite Gen 5.</p>
+          <div class="card-long">📱 RedMagic 11 Pro (NX809J) – 165Hz Display Overclock (DTBO) This repository provides the modified DTBO (Device Tree Blob Overlay) image to unlock the display refresh rate of the RedMagic 11 Pro (NX809J) from the stock 144Hz to a stable 165Hz. While the Snapdragon 8 Elite and the RM692H5...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/CameraZoomSlowmotionUnlock" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🎥</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>CameraZoomSlowmotionUnlock</h3>
+          <p class="card-short">LSPosed module  that unlocks 100x digital zoom in the RedMagic 11 Pro stock Nubia Camera app.</p>
+          <div class="card-long">CameraZoomUnlock Unlock 100x digital zoom and 1920fps super slow-motion in the RedMagic 11 Pro stock camera app An LSPosed module that removes artificial software limits in Nubia&#x27;s stock camera (com.android.camera): x → 100x digital zoom in the zoom arc slider fps → 1920fps super...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/RedMagic-11-Pro-ZRAM-16GB-RamSlider" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🧠</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>RedMagic-11-Pro-ZRAM-16GB-RamSlider</h3>
+          <p class="card-short">An open-source Magisk module and LSPosed hook to unlock 16 GB ZRAM (Extended RAM) with writeback and expand the settings slider to 16 steps on RedMagic 11 Pro (Android 16).</p>
+          <div class="card-long">🚀 RedMagic 11 Pro: 16GB ZRAM &amp; RamSlider Mod v1.0 This release provides the necessary components to unlock a true 16 GB ZRAM + 16 GB Writeback configuration on the RedMagic 11 Pro (REDMAGICOS 11, Android 16). 📦 Included Files zram16v1.1.zip (Magisk / KernelSU Module) Overlays vendor fstab...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/GameStretchUnlock" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🎮</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>GameStretchUnlock</h3>
+          <p class="card-short">LSPosed module for RedMagic Free Screen — stretches game content to fullscreen instead of showing letterbox black bars.</p>
+          <div class="card-long">🎮 GameStretchUnlock Stretches game content to fill the entire display instead of showing letterbox black bars when using RedMagic&#x27;s &quot;Free Screen&quot; feature. 📖 What does it do? RedMagic&#x27;s Game Space &quot;Free Screen&quot; feature lets you play portrait-only games in landscape using custom aspect...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/MagicControl" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🔥</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>MagicControl</h3>
+          <p class="card-short">Magisk module for charge/ vibration/touch/brightness/thermal control</p>
+          <div class="card-long">A Magisk module for advanced device control. Charge separation — stops charging at a threshold, with optional delay Charge boost — removes current restriction when charge separation is off Vibration boost — gain / duration / vmax tuning Touch optimization — global or per-app high report...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/ForceMax-RedMagic" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">❄️</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>ForceMax-RedMagic</h3>
+          <p class="card-short">Magisk/KernelSU module for RedMagic 11 Pro: locks fan and liquid cooling pump to max via 500ms watchdog, prevents module conflicts.</p>
+          <div class="card-long">ForceMax - RedMagic Fan &amp; Pump Max Locker A Magisk/KernelSU module for the RedMagic 11 Pro that locks the cooling fan and the liquid cooling pump (AWP1921) to maximum. A 500 ms watchdog prevents conflicts with other fan modules (FanExtreme, etc.). Fan locked to level 5 (23,160 RPM, max)...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
+      </a>
+      <a class="card reveal" href="https://github.com/KahramanEdit/DiabloSuperUnlock" target="_blank" rel="noopener">
+        <div>
+          <div class="card-top">
+            <span class="symbol">🔥</span>
+            <div class="badges">
+              <span class="badge lang">Repo</span>
+              <span class="badge">PUBLIC</span>
+            </div>
+          </div>
+          <h3>DiabloSuperUnlock</h3>
+          <p class="card-short">LSPosed module for RedMagic GameAssist — enables Diablo mode and Superior Pic Quality (Super Resolution) to work simultaneously.</p>
+          <div class="card-long">Diablo Super Unlock An LSPosed module for RedMagic GameAssist that removes the &quot;Please turn off Superior Pic Quality first&quot; restriction. Diablo mode and Superior Pic Quality (Super Resolution) can now be used at the same time. 📦 Included Modules This release contains 3 modules — install...</div>
+        </div>
+        <div class="card-purpose"><strong>Açık Kaynak:</strong> GitHub reposunu görüntüle ↗</div>
       </a>
     </div>
   </section>
 
-  <!-- BÖLÜM 2: SES, MEDYA, YARDIMCI ARAÇLAR & CHROME EKLENTİSİ (6 REPO) -->
-  <section id="tools">
-    <div class="eyebrow reveal">02 / Ses, Medya, Araçlar &amp; Web</div>
+  
+  <section id="private-projects">
+    <div class="eyebrow reveal">02 / Özel Depolar (4 Private Proje)</div>
     <h2>
-      <span class="type reveal">Ses kontrolü, senkron oynatıcı</span><br>
-      <span class="type reveal">ve geliştirici araçları.</span>
+      <span class="type reveal">Özel geliştirme</span><br>
+      <span class="type reveal">ve gizli projeler.</span>
     </h2>
-    <p class="reveal">Kablosuz ses teknolojileri, senkron müzik çalma, ultra geniş video deneyimi ve Magisk geliştirici araçları.</p>
-
+    <p class="reveal">Henüz dışarıya açılmamış veya özel kullanıma yönelik geliştirdiğim projeler. Bu depoların bağlantıları gizli tutulur.</p>
     <div class="grid">
-      <a class="card reveal" href="https://github.com/KahramanEdit/AuracastControl" target="_blank" rel="noopener">
+      
+      <article class="card private-card reveal">
         <div>
-          <div class="card-top"><span class="symbol">📡</span><span class="badge purple">KernelSU</span></div>
-          <h3>AuracastControl</h3>
-          <p>RedMagic 11 Pro'da Auracast (LE Audio Broadcast) ses yayınını kontrol etmeyi sağlayan, WebUI ve komut satırı (CLI) arayüzüne sahip KernelSU modülü.</p>
+          <div class="card-top">
+            <span class="symbol">🎮</span>
+            <div class="badges">
+              <span class="badge lang">Private</span>
+              <span class="badge pink">🔒 PRIVATE</span>
+            </div>
+          </div>
+          <h3>Clenix-Locker</h3>
+          <p class="card-short">An automated Nonamegame Instalock and Auto-Clicker tool built with C# WinForms. Features a visual agent selector, randomized anti-detection clicks, and smart resolution scaling. Use at your own risk.</p>
+          <div class="card-long private-long">🎮 Clenix Locker An Automated Nonamegame Instalock &amp; Agent Selector Tool Clenix Locker is a lightweight and highly customizable Windows desktop application designed specifically for Nonamegame players. It automates the agent selection (instalock) process and performs precise, randomized...</div>
         </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Auracast kablosuz ses yayınlarını arayüz veya terminal üzerinden doğrudan yönetmek.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/Arctis-Mobile-EQ" target="_blank" rel="noopener">
+        <div class="card-purpose private-foot"><strong>🔒 Özel Proje:</strong> Kaynak kodu gizlidir, bağlantı paylaşılmaz.</div>
+      </article>
+      <article class="card private-card reveal">
         <div>
-          <div class="card-top"><span class="symbol">🎧</span><span class="badge purple">LSPosed</span></div>
-          <h3>Arctis-Mobile-EQ</h3>
-          <p>SteelSeries Arctis Companion mobil uygulaması içinde özel 10 bant Parametrik EQ kilidini açan LSPosed modülü; kısıtlı ön ayarları aşarak kazanç, frekans ve Q-faktörünü anlık düzenlemeyi sağlar.</p>
+          <div class="card-top">
+            <span class="symbol">🔒</span>
+            <div class="badges">
+              <span class="badge lang">Private</span>
+              <span class="badge pink">🔒 PRIVATE</span>
+            </div>
+          </div>
+          <h3>Android-Mod-Template</h3>
+          <p class="card-short">MY Android-Mod-Templates</p>
+          <div class="card-long private-long">Sen uzman bir Android Mod Geliştiricisi ve LSPosed/Magisk modülü yazılımcısısın. Benimle bu kurallar çerçevesinde çalışacaksın. Bundan sonraki tüm isteklerimde bu &quot;Sistem Kuralları&quot;nı (Master Prompt) referans al. Başlık, kısa açıklama, readme , versiyon adı, versiyon açıklaması hepsi için...</div>
         </div>
-        <div class="card-purpose"><strong>Amacı:</strong> PC'ye ihtiyaç duymadan mobil uygulama üzerinden profesyonel parametrik ekolayzır ayarı yapmak.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/synclite" target="_blank" rel="noopener">
+        <div class="card-purpose private-foot"><strong>🔒 Özel Proje:</strong> Kaynak kodu gizlidir, bağlantı paylaşılmaz.</div>
+      </article>
+      <article class="card private-card reveal">
         <div>
-          <div class="card-top"><span class="symbol">🎵</span><span class="badge purple">Android App</span></div>
-          <h3>synclite</h3>
-          <p>İki Android cihazda senkron müzik çalar. Aynı ağdaki iki telefon PLAY, PAUSE, STOP, NEXT, PREV ve SEEK komutlarını milisaniye hassasiyetle birlikte uygular.</p>
+          <div class="card-top">
+            <span class="symbol">🎮</span>
+            <div class="badges">
+              <span class="badge lang">Private</span>
+              <span class="badge pink">🔒 PRIVATE</span>
+            </div>
+          </div>
+          <h3>Unity-AI-Mod-Engine</h3>
+          <p class="card-short">An advanced Magisk/KernelSU  module for Unity/IL2CPP games. Features memory dumping, offset generation, Lua script creation, and AI-assisted WebUI integration.</p>
+          <div class="card-long private-long">🧠 Unity AI Mod Engine Next-Generation Memory Dumping &amp; Script Generation for Unity Games An advanced, AI-assisted Magisk/KernelSU module designed to automate the process of memory dumping, offset extraction, and Lua script generation for Unity/IL2CPP games. 📖 The Problem Modding...</div>
         </div>
-        <div class="card-purpose"><strong>Amacı:</strong> Aynı ağdaki iki Android cihazdan gecikmesiz ve eşzamanlı müzik yayını yapmak.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/Panoramic-Wide" target="_blank" rel="noopener">
+        <div class="card-purpose private-foot"><strong>🔒 Özel Proje:</strong> Kaynak kodu gizlidir, bağlantı paylaşılmaz.</div>
+      </article>
+      <article class="card private-card reveal">
         <div>
-          <div class="card-top"><span class="symbol">🖥️</span><span class="badge purple">Chrome Extension</span></div>
-          <h3>Panoramic-Wide</h3>
-          <p>Herhangi bir web videosunu merkezdeki görüntüyü bozmadan 32:9 ultra geniş (ultra-wide) ekrana yayan Manifest V3 Chrome eklentisi.</p>
+          <div class="card-top">
+            <span class="symbol">🔒</span>
+            <div class="badges">
+              <span class="badge lang">Private</span>
+              <span class="badge pink">🔒 PRIVATE</span>
+            </div>
+          </div>
+          <h3>Tel-Mouse-Recovery</h3>
+          <p class="card-short">Ultimate disaster recovery and setup guide for the NCNN-based HID Aimbot system.</p>
+          <div class="card-long private-long">🖱️ Tel Mouse - Ultimate Disaster Recovery Guide NCNN + HID Aimbot System Setup &amp; Recovery The ultimate end-to-end setup and disaster recovery guide for the Tel Mouse project. If your PC, phone, or entire system gets wiped (format, data loss, factory reset), follow this guide to rebuild...</div>
         </div>
-        <div class="card-purpose"><strong>Amacı:</strong> 32:9 ultra geniş monitörlerde web videolarını orantıyı bozmadan tam ekrana uyarlamak.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/Magisk-GifBoot" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">🎞️</span><span class="badge purple">Magisk / KernelSU</span></div>
-          <h3>Magisk-GifBoot</h3>
-          <p>Herhangi bir GIF veya video dosyasını ekran boyutuna tam ölçeklenmiş bir Android açılış animasyonuna (bootanimation) dönüştüren Magisk/KernelSU modülü.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> İstenen GIF veya videoları otomatik ölçekleyerek Android açılış animasyonu haline getirmek.</div>
-      </a>
-
-      <a class="card reveal" href="https://github.com/KahramanEdit/Zip2Txt" target="_blank" rel="noopener">
-        <div>
-          <div class="card-top"><span class="symbol">📋</span><span class="badge purple">Android Utility</span></div>
-          <h3>Zip2Txt</h3>
-          <p>Magisk modülü ZIP arşivlerinin içindeki metin dosyalarını ayıklayıp yapay zeka analizi için doğrudan panoya kopyalayan Android yardımcı aracı.</p>
-        </div>
-        <div class="card-purpose"><strong>Amacı:</strong> ZIP içindeki modül kodlarını ve betiklerini tek dokunuşla çıkarıp AI analizine hazır hale getirmek.</div>
-      </a>
+        <div class="card-purpose private-foot"><strong>🔒 Özel Proje:</strong> Kaynak kodu gizlidir, bağlantı paylaşılmaz.</div>
+      </article>
     </div>
   </section>
 
   <section id="end">
-    <div class="eyebrow reveal">03 / GitHub Arşivi</div>
-    <h2><span class="type reveal">Tüm repolar açık kaynak ve MIT lisanslı.</span></h2>
-    <p class="reveal">Kaynak kodları incelemek, indirmek veya katkıda bulunmak için kartlara tıklayabilir ya da GitHub profilimi ziyaret edebilirsin.</p>
+    <div class="eyebrow reveal">03 / GitHub Profili</div>
+    <h2><span class="type reveal">Açık kaynak projelerimi GitHub'da incele.</span></h2>
+    <p class="reveal">Yeni sürümler, güncellemeler ve açık kaynak kodlar için GitHub profilimi takip edebilirsin.</p>
     <div class="hero-actions">
       <a class="btn reveal" href="https://github.com/KahramanEdit" target="_blank" rel="noopener">github.com/KahramanEdit ↗</a>
       <a class="btn secondary reveal" href="#top">Başa Dön</a>
